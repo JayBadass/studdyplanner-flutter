@@ -71,61 +71,65 @@ class _HomePageState extends State<HomePage> {
                           ),
                         );
                       },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  left: 16.0, top: 16.0, bottom: 16.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    memo.title,
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                      child: Container(
+                        width: double.infinity,
+                        color: Colors.transparent,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: 16.0, top: 16.0, bottom: 16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      memo.title,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      maxLines: 1,
                                     ),
-                                    maxLines: 1,
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    memo.content,
-                                    style: TextStyle(
-                                      fontSize: 16,
+                                    SizedBox(height: 8),
+                                    Text(
+                                      memo.content,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: IconButton(
-                              icon: memo.isChecked
-                                  ? Icon(
-                                      Icons.check_box,
-                                      color: Colors.green[300],
-                                    )
-                                  : Icon(
-                                      CupertinoIcons.square,
-                                      color: Colors.grey,
-                                    ),
-                              onPressed: () {
-                                setState(() {
-                                  memo.isChecked = !memo.isChecked;
-                                });
-                              },
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: IconButton(
+                                icon: memo.isChecked
+                                    ? Icon(
+                                        Icons.check_box,
+                                        color: Colors.green[300],
+                                      )
+                                    : Icon(
+                                        CupertinoIcons.square,
+                                        color: Colors.grey,
+                                      ),
+                                onPressed: () {
+                                  setState(() {
+                                    memo.isChecked = !memo.isChecked;
+                                  });
+                                },
+                              ),
                             ),
-                          ),
-                          Divider(
-                            thickness: 0.5,
-                            height: 0.5,
-                          ),
-                        ],
+                            Divider(
+                              thickness: 0.5,
+                              height: 0.5,
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -134,7 +138,7 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Color.fromRGBO(250, 221, 175, 1),
             child: Icon(Icons.add),
             onPressed: () {
-              memoService.createMemo(title: '제목을 입력하세요', content: '내용을 입력하세요');
+              memoService.createMemo(title: '', content: '');
               Navigator.push(
                 context,
                 MaterialPageRoute(
