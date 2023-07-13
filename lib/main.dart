@@ -41,7 +41,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Consumer<MemoService>(
       builder: (context, memoService, child) {
-        // memoService로 부터 memoList 가져오기
         List<Memo> memoList = memoService.memoList;
 
         return Scaffold(
@@ -54,52 +53,75 @@ class _HomePageState extends State<HomePage> {
                   itemCount: memoList.length,
                   itemBuilder: (context, index) {
                     Memo memo = memoList[index];
-                    return Row(
-                      children: [
-                        Expanded(
-                          child: ListTile(
-                            title: Text(
-                              memo.content,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => DetailPage(
+                              index: index,
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => DetailPage(
-                                    index: index,
-                                  ),
-                                ),
-                              );
-                            },
                           ),
-                        ),
-                        IconButton(
-                          icon: memo.isChecked
-                              ? Icon(
-                                  Icons.check_box,
-                                  color: Colors.green,
-                                )
-                              : Icon(
-                                  CupertinoIcons.square,
-                                  color: Colors.grey,
-                                ),
-                          onPressed: () {
-                            setState(() {
-                              memo.isChecked = !memo.isChecked;
-                            });
-                          },
-                        ),
-                      ],
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: 16.0, top: 16.0, bottom: 16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    memo.title,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    memo.content,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton(
+                              icon: memo.isChecked
+                                  ? Icon(
+                                      Icons.check_box,
+                                      color: Colors.green,
+                                    )
+                                  : Icon(
+                                      CupertinoIcons.square,
+                                      color: Colors.grey,
+                                    ),
+                              onPressed: () {
+                                setState(() {
+                                  memo.isChecked = !memo.isChecked;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
             onPressed: () {
-              // + 버튼 클릭시 메모 생성 및 수정 페이지로 이동
-              memoService.createMemo(content: '');
+              memoService.createMemo(title: '제목을 입력하세요', content: '내용을 입력하세요');
               Navigator.push(
                 context,
                 MaterialPageRoute(
