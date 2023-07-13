@@ -44,11 +44,18 @@ class _HomePageState extends State<HomePage> {
         List<Memo> memoList = memoService.memoList;
 
         return Scaffold(
+          backgroundColor: Color.fromRGBO(249, 244, 236, 1.0),
           appBar: AppBar(
-            title: Text("Todo List"),
+            automaticallyImplyLeading: false,
+            elevation: 0.5,
+            backgroundColor: Color.fromRGBO(249, 244, 236, 1.0),
+            title: Text(
+              "오늘의 할 일",
+              style: TextStyle(color: Colors.grey[500]),
+            ),
           ),
           body: memoList.isEmpty
-              ? Center(child: Text("할일을 작성해 주세요"))
+              ? Center(child: Text("할 일을 입력하세요"))
               : ListView.builder(
                   itemCount: memoList.length,
                   itemBuilder: (context, index) {
@@ -80,6 +87,7 @@ class _HomePageState extends State<HomePage> {
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
+                                    maxLines: 1,
                                   ),
                                   SizedBox(height: 8),
                                   Text(
@@ -100,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                               icon: memo.isChecked
                                   ? Icon(
                                       Icons.check_box,
-                                      color: Colors.green,
+                                      color: Colors.green[300],
                                     )
                                   : Icon(
                                       CupertinoIcons.square,
@@ -113,12 +121,17 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
                           ),
+                          Divider(
+                            thickness: 0.5,
+                            height: 0.5,
+                          ),
                         ],
                       ),
                     );
                   },
                 ),
           floatingActionButton: FloatingActionButton(
+            backgroundColor: Color.fromRGBO(250, 221, 175, 1),
             child: Icon(Icons.add),
             onPressed: () {
               memoService.createMemo(title: '제목을 입력하세요', content: '내용을 입력하세요');
