@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import 'memo_service.dart';
 
-// 메모 생성 및 수정 페이지
 class DetailPage extends StatelessWidget {
   DetailPage({Key? key, required this.index}) : super(key: key);
 
@@ -23,42 +22,52 @@ class DetailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("수정하기"),
+        title: Text("수정하기", style: TextStyle(color: Colors.grey[500])),
+        backgroundColor: Color.fromRGBO(249, 244, 236, 1.0),
+        iconTheme: IconThemeData(color: Colors.grey[500]), // 뒤로가기 버튼 색상 설정
         actions: [
           IconButton(
             onPressed: () {
               // 삭제 버튼 클릭시
               showDeleteDialog(context, memoService);
             },
-            icon: Icon(Icons.delete),
+            icon: Icon(
+              Icons.delete,
+              color: Colors.grey[500],
+            ),
           )
         ],
       ),
-      body: Padding(
+      body: Container(
+        color: Color.fromRGBO(249, 244, 236, 1.0),
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              margin: EdgeInsets.only(bottom: 8),
-              child: Text(
-                "제목",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             Flexible(
               child: TextField(
                 controller: titleController,
                 decoration: InputDecoration(
-                  hintText: "제목을 입력하세요",
-                  border: UnderlineInputBorder(),
+                  labelText: "제목",
+                  hintText: "할 일을 입력하세요",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: Colors.grey[500]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderSide:
+                        BorderSide(color: Colors.grey[700]!, width: 2.0),
+                  ),
+                  labelStyle: TextStyle(
+                    color: Colors.grey[700],
+                  ),
                 ),
+                cursorColor: Colors.grey[700],
                 style: TextStyle(
-                  fontSize: 18,
+                  color: Colors.grey[700], // 선택된 상태일 때 텍스트 색상
                 ),
+                autofocus: true,
                 maxLines: null,
                 expands: false,
                 keyboardType: TextInputType.multiline,
@@ -73,26 +82,27 @@ class DetailPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            Container(
-              margin: EdgeInsets.only(bottom: 8),
-              child: Text(
-                "내용",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             Flexible(
               child: TextField(
                 controller: contentController,
                 decoration: InputDecoration(
-                  hintText: "내용을 입력하세요",
-                  border: UnderlineInputBorder(),
+                  labelText: "할 일",
+                  hintText: "세부사항을 입력하세요",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.grey[500]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderSide:
+                        BorderSide(color: Colors.grey[700]!, width: 2.0),
+                  ),
+                  labelStyle: TextStyle(
+                    color: Colors.grey[700],
+                  ),
                 ),
-                style: TextStyle(
-                  fontSize: 18,
-                ),
+                cursorColor: Colors.grey[700],
+                autofocus: false,
                 maxLines: null,
                 expands: false,
                 keyboardType: TextInputType.multiline,
