@@ -6,9 +6,11 @@ import 'main.dart';
 class Memo {
   Memo({
     required this.content,
+    this.isChecked = false,
   });
 
   String content;
+  bool isChecked;
 }
 
 // Memo 데이터는 모두 여기서 관리
